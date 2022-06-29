@@ -3,7 +3,6 @@ package com.checkUpdate.App;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
@@ -17,13 +16,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class UpdateScreen extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Label label = new Label("Update Available");
 		Button btn = new Button("Download");
 		btn.setOnAction(e -> {
 			try {
@@ -56,9 +58,17 @@ public class UpdateScreen extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
+		Button btn2 = new Button("Continue with current version");
+		btn2.setOnAction(e->{
+			System.out.println("Open Main Screen");
+		});
 
 		BorderPane pane = new BorderPane();
-		pane.setCenter(btn);
+		pane.setTop(label);
+		VBox box = new VBox(10);
+		box.getChildren().addAll(btn, btn2);
+		pane.setCenter(box);
 
 		Scene scene = new Scene(pane, 300, 200);
 
